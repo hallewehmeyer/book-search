@@ -51,7 +51,7 @@ function Search() {
       //   synopsis: formObject.synopsis
       // })
       API.getBooks(formObject.title)
-        .then(res => console.log(res))
+        .then(res => setBooks(res.data))
         .catch(err => console.log(err));
     }
   };
@@ -85,11 +85,12 @@ function Search() {
               <List>
                 {books.map(book => (
                   <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
+                      <strong> <a href = {book.infoLink}>
+                        {book.title} by {book.authors[0]}
+                        </a>
                       </strong>
-                    </Link>
+                      <p>{book.description}</p>
+                      <img src = {book.imageLinks}/>
                     <DeleteBtn onClick={() => deleteBook(book._id)} />
                   </ListItem>
                 ))}

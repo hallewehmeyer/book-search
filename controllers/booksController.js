@@ -12,8 +12,17 @@ module.exports = {
     axios.get("https://www.googleapis.com/books/v1/volumes",{params:req.query}).then(results=>{
       console.log(results.data.items)
       const selectedBooks=results.data.items.filter(result=>{
-        if(result.volumeInfo.title && result.volumeInfo.authors && result.volumeInfo.description && result.volumeInfo.imageLinks && result.volumeInfo.imageLinks.thumbnail)
+        if(result.volumeInfo.title && result.volumeInfo.authors && result.volumeInfo.description && result.volumeInfo.imageLinks && result.volumeInfo.imageLinks.thumbnail && result.volumeInfo.infoLink)
           return true
+      })
+      .map(result=>{
+        return ({
+          title: result.volumeInfo.title,
+          authors: result.volumeInfo.authors,
+          description: result.volumeInfo.description,
+          imageLinks: result.volumeInfo.imageLinks.thumbnail,
+          infoLink: result.volumeInfo.infoLink,
+        })
       })
       res.json(selectedBooks)
     })
