@@ -45,17 +45,17 @@ function Search() {
     event.preventDefault();
     console.log(formObject)
     if (formObject.title) {
-      // API.saveBook({
-      //   title: formObject.title,
-      //   author: formObject.author,
-      //   synopsis: formObject.synopsis
-      // })
       API.getBooks(formObject.title)
         .then(res => setBooks(res.data))
         .catch(err => console.log(err));
     }
   };
-
+  function handleSave(book) {
+    API.saveBook(book)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+  }
+  
     return (
       <Container fluid>
         <Row>
@@ -92,6 +92,7 @@ function Search() {
                       <p>{book.description}</p>
                       <img src = {book.imageLinks}/>
                     <DeleteBtn onClick={() => deleteBook(book._id)} />
+                    <button onClick={() => handleSave(book)}>Save</button>
                   </ListItem>
                 ))}
               </List>
