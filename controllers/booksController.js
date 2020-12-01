@@ -1,13 +1,22 @@
 const db = require("../models");
-
+const axios = require("axios")
 // Defining methods for the booksController
 module.exports = {
   findAll: function(req, res) {
-    db.Book
-      .find(req.query)
-      .sort({ date: -1 })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    // db.Book
+    //   .find(req.query)
+    //   .sort({ date: -1 })
+    //   .then(dbModel => res.json(dbModel))
+    //   .catch(err => res.status(422).json(err));
+    console.log(req.query)
+    axios.get("https://www.googleapis.com/books/v1/volumes",{params:req.query}).then(results=>{
+      console.log(results.data.items)
+      const selectedBooks=results.data.items.filter(result=>{
+        if(result.volumeInfo.title && result.volumeInfo.authors && result.volumeInfo.description && result.volumeInfo.imageLinks && result.volumeInfo.imageLinks.thumbnail)
+          return true
+      })
+      res.json(selectedBooks)
+    })
   },
   findById: function(req, res) {
     db.Book

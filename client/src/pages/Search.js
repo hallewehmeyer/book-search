@@ -43,13 +43,15 @@ function Search() {
   // Then reload books from the database
   function handleFormSubmit(event) {
     event.preventDefault();
-    if (formObject.title && formObject.author) {
-      API.saveBook({
-        title: formObject.title,
-        author: formObject.author,
-        synopsis: formObject.synopsis
-      })
-        .then(res => loadBooks())
+    console.log(formObject)
+    if (formObject.title) {
+      // API.saveBook({
+      //   title: formObject.title,
+      //   author: formObject.author,
+      //   synopsis: formObject.synopsis
+      // })
+      API.getBooks(formObject.title)
+        .then(res => console.log(res))
         .catch(err => console.log(err));
     }
   };
@@ -68,7 +70,7 @@ function Search() {
                 placeholder="Title (required)"
               />
               <FormBtn
-                disabled={!(formObject.author && formObject.title)}
+                disabled={!(formObject.title)}
                 onClick={handleFormSubmit}
               >
                 Submit Book
