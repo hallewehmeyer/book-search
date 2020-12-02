@@ -8,17 +8,21 @@ import Search from "./Search";
 
 
 
-function Detail(props) {
-  const [book, setBook] = useState({})
+function Saved(props) {
+  const [book, setSaved] = useState({})
 
   // When this component mounts, grab the book with the _id of props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
-  const {id} = useParams()
+  const {} = useParams()
   useEffect(() => {
-    API.getBook(id)
-      .then(res => setBook(res.data))
+    API.getSaved()
+      .then(res => {
+        console.log(res.data)
+        setSaved(res.data)})
       .catch(err => console.log(err));
+
   }, [])
+
 
   return (
       <Container fluid>
@@ -26,9 +30,6 @@ function Detail(props) {
           <Col size="md-12">
             <Jumbotron>
               <h1>
-                <Search 
-                  onChange={handleSave}
-                />
               </h1>
             </Jumbotron>
           </Col>
@@ -38,7 +39,7 @@ function Detail(props) {
             <article>
               <h1></h1>
               <p>
-              {return(bookData)
+              
               </p>
             </article>
           </Col>
@@ -53,4 +54,4 @@ function Detail(props) {
   }
 
 
-export default Detail;
+export default Saved;

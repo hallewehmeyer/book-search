@@ -53,7 +53,7 @@ function Search() {
   function handleSave(book) {
     API.saveBook(book)
     .then(res => console.log(res))
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
   }
   
     return (
@@ -73,7 +73,7 @@ function Search() {
                 disabled={!(formObject.title)}
                 onClick={handleFormSubmit}
               >
-                Submit Book
+                Search Book
               </FormBtn>
             </form>
           </Col>

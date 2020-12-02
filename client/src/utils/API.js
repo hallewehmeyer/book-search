@@ -3,11 +3,13 @@ import axios from "axios";
 export default {
   // Gets all books
   getBooks: function(bookTitle) {
+    console.log(bookTitle)
     return axios.get(`/api/books?q=${bookTitle}`);
   },
   // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
+  getSaved: function() {
+    console.log("getting saved")
+    return axios.get("/api/books/saved");
   },
   // Deletes the book with the given id
   deleteBook: function(id) {
